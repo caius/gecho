@@ -1,13 +1,15 @@
 package main
 
 import (
-	"fmt"
+	"syscall"
 )
 
 func main() {
-	cmdPath := "/bin/echo"
-	cmdArgs := []string{"Hello", "World"}
+	cmdArgs := []string{"/bin/echo", "Hello", "World"}
 	cmdEnv := []string{}
 
-	fmt.Printf("path: %v\nargs: %v\nenv: %v\n", cmdPath, cmdArgs, cmdEnv)
+	err := syscall.Exec(cmdArgs[0], cmdArgs, cmdEnv)
+	if err != nil {
+		panic(err)
+	}
 }
